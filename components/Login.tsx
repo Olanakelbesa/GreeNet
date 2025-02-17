@@ -9,14 +9,29 @@ import hidePwd from "@/public/icons/hidden.png";
 import viewPwd from "@/public/icons/view.png";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPwd, setShowPwd] = useState(false);
+	const router = useRouter();
 
 	const handleShowPwd = () => {
 		setShowPwd(!showPwd);
+	};
+
+	const handleGoogleSignIn = async () => {
+		try {
+			const result = await signIn("google", { callbackUrl: "/dashboard" });
+			console.log("Google sign-in result:", result);
+
+			if (result?.error) {
+				alert("Google sign-in failed: " + result.error);
+			}
+		} catch (error) {
+			console.error("Google sign-in error:", error);
+		}
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -28,9 +43,9 @@ function LoginPage() {
 		});
 		console.log(result);
 		if (!result?.error) {
-			window.location.href = "/dashboard";
+			router.push("/dashboard");
 		} else {
-			alert("Invaild cedentials");
+			alert("Invaild credentials");
 		}
 	};
 
@@ -123,7 +138,10 @@ function LoginPage() {
 								/>
 								<p className="text-center w-full">Continue with Phone number</p>
 							</button>
-							<button className="flex items-center  border-2 border-solid border-gray-500 w-full p-2 rounded-lg hover:text-gray-400">
+							<button
+								onClick={handleGoogleSignIn}
+								className="flex items-center  border-2 border-solid border-gray-500 w-full p-2 rounded-lg hover:text-gray-400"
+							>
 								<Image
 									src={google}
 									alt="google icon"

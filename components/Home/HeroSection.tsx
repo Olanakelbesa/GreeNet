@@ -3,8 +3,10 @@ import Image from 'next/image'
 import dashboard from "@/public/images/dashboard.png";
 import leftleaf from "@/public/images/left-leaf.png";
 import rightleaf from "@/public/images/right-leaf.png";
+import Link from 'next/link';
 
 function HeroSection() {
+	
   return (
     <div className="main flex pt-80 justify-center bg-gradient-to-b from-green-100 to-white h-screen ">
 				<div className="absolute top-10 left-0 z-[5]">
@@ -25,9 +27,9 @@ function HeroSection() {
 						and community support.”
 					</p>
 					<div className="py-2">
-						<button className="bg-green-500 text-white rounded-full p-2 px-4">
+						<Link href={"/login"} className="bg-green-500 text-white rounded-full p-2 px-4">
 							Get Started
-						</button>
+						</Link>
 					</div>
 					<div>
 						<Image src={dashboard} alt="dash" width={800} height={600} />

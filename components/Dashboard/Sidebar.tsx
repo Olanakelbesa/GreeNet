@@ -2,6 +2,7 @@
 
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react"; // Import useEffect for client-side rendering
 import { GoPeople } from "react-icons/go";
 import {
@@ -15,6 +16,7 @@ import { TbPremiumRights } from "react-icons/tb";
 import { TiWeatherCloudy } from "react-icons/ti";
 
 function SideBar() {
+	const pathname = usePathname();
 	const [enabled, setEnabled] = useState(false);
 
 	const handleSignOut = async () => {
@@ -59,7 +61,11 @@ function SideBar() {
 						<Link
 							key={index}
 							href={item.href}
-							className="flex items-center gap-2 text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2"
+							className={`flex items-center gap-2 text-black ${
+								pathname === item.href
+									? "bg-[#29BB49] text-white font-semibold rounded-lg"
+									: "hover:text-[#29bb49]"
+							} p-2`}
 						>
 							<span>{item.icon}</span>
 							<p>{item.text}</p>
@@ -72,12 +78,22 @@ function SideBar() {
 				<div className="flex flex-col gap-2">
 					<Link
 						href={"/dashboard/watchlist"}
-						className="flex items-center gap-2 text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2  "
+						className={`flex items-center gap-2 text-black ${
+							pathname === "/dashboard/watchlist"
+								? "bg-[#29BB49] text-white font-semibold rounded-lg"
+								: "hover:text-[#29bb49]"
+						} p-2  `}
 					>
 						<IoListCircleOutline className="" />
 						<p>Watchlist</p>
 					</Link>
-					<div className="flex  justify-between items-center gap-2 text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2 ">
+					<div
+						className={`flex justify-between items-center gap-2 text-black ${
+							pathname === "/dashboard/subscription"
+								? "bg-[#29BB49] text-white font-semibold rounded-lg"
+								: "hover:text-[#29bb49]"
+						} p-2  `}
+					>
 						<Link
 							href={"/dashboard/subscription"}
 							className="flex items-center gap-2  "
@@ -113,7 +129,7 @@ function SideBar() {
 			<div className="flex items-end w-full">
 				<button
 					onClick={handleSignOut} // Call the handleSignOut function
-					className="flex gap-2 w-full items-center mt-4 text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2"
+					className="flex gap-2 w-full items-center mt-4 text-black  hover:text-[#29bb49] p-2"
 				>
 					<LuLogOut className="text-xl" />
 					<p>LogOut</p>

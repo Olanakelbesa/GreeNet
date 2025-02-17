@@ -46,18 +46,18 @@ const NavBar = () => {
 					</div>
 				</div>
 				{session ? (
-					<div className="flex items-center">
+					<div className="flex items-center ">
 						<IoNotificationsOutline className="text-2xl text-[#29bb49]" />
 						<div className="w-[2px] h-8 bg-[#28bb49] mx-2 "></div>
 						<Image
 							className="rounded-full"
-							src={profilepic}
+							src={session.user?.image}
 							alt=""
-							width={40}
-							height={40}
+							width={35}
+							height={35}
 						/>
 
-						<div className="px-2 flex flex-col justify-center">
+						<div className="px-2 flex flex-col justify-center py-2">
 							<p className="font-semibold text-lg">{userName}</p>
 							<p className="text-sm text-gray-400">{session.user?.email}</p>
 						</div>

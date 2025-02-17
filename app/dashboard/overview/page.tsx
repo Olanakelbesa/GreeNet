@@ -1,40 +1,45 @@
-import CircularProgressbar from "@/app/overview/CircularProgressbar";
+import CircularProgressbar from "@/app/dashboard/overview/CircularProgressbar";
 import React from "react";
 import { MarketStatus } from "./MarketStatus";
 import Croplist from "./Croplist";
 import Map from "./Map";
 import { IoFilterOutline, IoSettingsOutline } from "react-icons/io5";
-import { Barchart } from "@/app/overview/WeeklyOverviewBarChart";
-import { HighDemandChart } from "@/app/overview/HighDemandChart";
+import { Barchart } from "@/app/dashboard/overview/WeeklyOverviewBarChart";
+import { HighDemandChart } from "@/app/dashboard/overview/HighDemandChart";
 import AlertOverview from "./AlertOverview";
 import BlogCard from "./BlogCard";
+import VideoCard from "./video";
 
 function Page() {
 	return (
-		<div className="w-full flex gap-4 ">
+		<div className="w-full flex gap-4 py-2 px-4 ">
 			<div className="middle w-[60%]">
 				<h1 className="text-2xl font-semibold px-4 py-3">Overview</h1>
 				<div className="flex gap-4 flex-wrap justify-between">
 					<CircularProgressbar
 						name="Temperature"
 						progress={75}
-						percentage="15%"
+						percentage={15}
 						isTemperature={true}
-						image = {"/images/sun.png"}
+						isWindSpeed={false}
+						image={"/images/sun.png"}
 					/>
 					<CircularProgressbar
 						name="Humidity"
 						progress={50}
-						percentage="10%"
+						percentage={10}
 						isTemperature={false}
-						image = {"/images/drop.png"}
+						isWindSpeed={false}
+						image={"/images/drop.png"}
 					/>
 					<CircularProgressbar
 						name="Wind Speed"
 						progress={30}
-						percentage="5%"
+						percentage={5}
 						isTemperature={false}
-						image = {"/images/cloud-drizzle.png"}
+						isWindSpeed={false}
+
+						image={"/images/cloud-drizzle.png"}
 					/>
 				</div>
 				<div className="">
@@ -65,13 +70,13 @@ function Page() {
 					<HighDemandChart />
 				</div>
 				<div>
-					<AlertOverview/>
+					<AlertOverview />
 				</div>
 				<div>
-					<BlogCard imageSrc={"/images/blogcard.png"}/>
+					<BlogCard />
 				</div>
 				<div>
-					<BlogCard imageSrc={"/images/movie.png"}/>
+					<VideoCard />
 				</div>
 			</div>
 		</div>

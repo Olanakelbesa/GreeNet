@@ -5,7 +5,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 // Define the container style for the map
 const containerStyle: React.CSSProperties = {
   width: '100%',
-  height: '400px',
+  height: '688px',
 };
 
 // Define the props interface for GoogleMapComponent

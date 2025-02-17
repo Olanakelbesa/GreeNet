@@ -1,7 +1,8 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState } from "react"; // Import useEffect for client-side rendering
 import { GoPeople } from "react-icons/go";
 import {
 	IoAlertCircleOutline,
@@ -16,19 +17,44 @@ import { TiWeatherCloudy } from "react-icons/ti";
 function SideBar() {
 	const [enabled, setEnabled] = useState(false);
 
+	const handleSignOut = async () => {
+		await signOut(); // Perform sign out
+		window.location.href = "/";
+	};
+
 	return (
-		<div className="fixed top-16 left-2 w-[20%] bg-[#29BB49] bg-opacity-0 px-5 pr-10 py-4 border-2 border-solid border-[#29BB49] border-opacity-25 rounded-lg ">
+		<div className="fixed w-[20%] mt-2  ml-1 h-[90vh] bg-[#29BB49] bg-opacity-0 px-5 pr-10 py-4 border-2 border-solid border-[#29BB49] border-opacity-25 rounded-lg ">
 			<p className="text-xl ">DashBoard</p>
 			<div>
 				<p className="py-2 text-black text-opacity-40 ">menu</p>
 				<div className="flex flex-col gap-2">
 					{[
-						{ href: "/overview", icon: <MdMenu />, text: "Overview" },
-						{ href: "/", icon: <TiWeatherCloudy />, text: "Weather" },
-						{ href: "/", icon: <MdOutlineAutoGraph />, text: "Market Data" },
-						{ href: "/", icon: <IoMapOutline />, text: "Interactive Map" },
-						{ href: "/", icon: <IoAlertCircleOutline />, text: "Alert" },
-						{ href: "/", icon: <GoPeople />, text: "Community" },
+						{ href: "/dashboard/overview", icon: <MdMenu />, text: "Overview" },
+						{
+							href: "/dashboard/weather",
+							icon: <TiWeatherCloudy />,
+							text: "Weather",
+						},
+						{
+							href: "/dashboard/marketdata",
+							icon: <MdOutlineAutoGraph />,
+							text: "Market Data",
+						},
+						{
+							href: "/dashboard/interactivemaps",
+							icon: <IoMapOutline />,
+							text: "Interactive Map",
+						},
+						{
+							href: "/dashboard/alert",
+							icon: <IoAlertCircleOutline />,
+							text: "Alert",
+						},
+						{
+							href: "/dashboard/community",
+							icon: <GoPeople />,
+							text: "Community",
+						},
 					].map((item, index) => (
 						<Link
 							key={index}
@@ -45,14 +71,17 @@ function SideBar() {
 				<p className="py-3  text-black text-opacity-40 ">personal</p>
 				<div className="flex flex-col gap-2">
 					<Link
-						href={"/"}
+						href={"/dashboard/watchlist"}
 						className="flex items-center gap-2 text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2  "
 					>
 						<IoListCircleOutline className="" />
-						<p>Wachlist</p>
+						<p>Watchlist</p>
 					</Link>
 					<div className="flex  justify-between items-center gap-2 text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2 ">
-						<Link href={"/"} className="flex items-center gap-2  ">
+						<Link
+							href={"/dashboard/subscription"}
+							className="flex items-center gap-2  "
+						>
 							<TbPremiumRights className="text-lg  text-opacity-60" />
 							<p className="font-normal focus:bg-[#29BB49] focus:text-white focus:font-semibold ">
 								Subscription
@@ -81,13 +110,15 @@ function SideBar() {
 					</div>
 				</div>
 			</div>
-			<Link
-				href={"./"}
-				className="flex gap-2 items-center mt-4  text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2"
-			>
-				<LuLogOut className="text-xl" />
-				<p>LogOut</p>
-			</Link>
+			<div className="flex items-end w-full">
+				<button
+					onClick={handleSignOut} // Call the handleSignOut function
+					className="flex gap-2 w-full items-center mt-4 text-black hover:bg-[#29BB49] hover:text-white hover:font-semibold hover:rounded-lg p-2"
+				>
+					<LuLogOut className="text-xl" />
+					<p>LogOut</p>
+				</button>
+			</div>
 		</div>
 	);
 }

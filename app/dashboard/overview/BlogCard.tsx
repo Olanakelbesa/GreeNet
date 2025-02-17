@@ -1,18 +1,14 @@
 import Image from "next/image";
 import React from "react";
-import blogImage from "@/public/images/blogcard.png";
 import clock from "@/public/icons/clock.svg";
 import documenttext from "@/public/icons/document-text.png";
+import blogcard from "@/public/images/blogcard.png";
 
-interface BlogProps {
-	imageSrc: string;
-}
-
-const BlogCard: React.FC<BlogProps> = ({imageSrc}) => {
+const BlogCard = () => {
 	return (
 		<div className="shadow-md shadow-[#c1ffcf]  p-10 rounded-lg flex flex-col gap-2">
 			<div className="">
-				<Image src={imageSrc} alt="" className="w-full" width={324} height={180} />
+				<Image src={blogcard} alt="" className="w-full" width={324} height={180} />
 			</div>
 			<div className="flex gap-2">
 				<Image src={clock} alt="" />

@@ -4,8 +4,9 @@ import { BiUpArrow } from "react-icons/bi";
 interface ProgressProps {
 	progress: number;
 	name: string;
-	percentage: string;
+	percentage: number;
 	isTemperature: boolean;
+	isWindSpeed: boolean;
 	image: string;
 }
 
@@ -14,6 +15,7 @@ const CircularProgressbar: React.FC<ProgressProps> = ({
 	name,
 	percentage,
 	isTemperature,
+	isWindSpeed,
 	image,
 }) => {
 	const radius = 50; // Radius of the circle
@@ -21,12 +23,12 @@ const CircularProgressbar: React.FC<ProgressProps> = ({
 	const offset = circumference - (progress / 100) * circumference; // Calculate the offset for the open part
 
 	return (
-		<div className=" flex-1 border-2 border-solid border-[#29bb49] rounded-lg bg-[#29bb49] bg-opacity-5">
+		<div className=" flex-1 border border-solid border-[#29bb49] rounded-lg bg-[#29bb49] bg-opacity-5">
 			<div className="flex justify-between p-3">
 				<p>{name}</p>
-				<div className="flex justify-between items-center bg-gray-100 rounded-lg text-xs text-[#29bb49] px-1.5">
+				<div className={`flex justify-between items-center bg-gray-100 rounded-lg text-xs ${percentage < 10 ? "text-red-300" : "text-[#29bb49]"} w-10 px-1`}>
 					<BiUpArrow />
-					<p>{percentage}</p>
+					<p>{percentage}%</p>
 				</div>
 			</div>
 			<div className="flex justify-center py-2">
@@ -61,7 +63,7 @@ const CircularProgressbar: React.FC<ProgressProps> = ({
 			</div>
 			<div className="flex justify-center py-2 pb-3 text-2xl font-bold text-[#29bb49]">
 				{progress}
-				{isTemperature ? "°" : "%"}
+				{isTemperature ? "°" : isWindSpeed ? "Km/hr" : "%"}
 			</div>
 		</div>
 	);

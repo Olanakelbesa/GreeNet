@@ -1,12 +1,12 @@
-import Login from "@/components/Login";
-import React from "react";
+import LoginPage from '@/components/Login'
+import React from 'react'
 
 function page() {
-	return (
-		<div>
-			<Login />
-		</div>
-	);
+  return (
+	<div>
+		<LoginPage/>
+	</div>
+  )
 }
 
-export default page;
+export default page

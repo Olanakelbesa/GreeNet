@@ -66,7 +66,7 @@ export function Barchart() {
 					</div>
 				</div>
 			</CardHeader>
-			<CardContent>
+			<CardContent className=" ">
 				<ChartContainer config={chartConfig}>
 					<BarChart accessibilityLayer data={chartData}>
 						<CartesianGrid vertical={false} />
@@ -87,6 +87,8 @@ export function Barchart() {
 							dataKey="visitors"
 							strokeWidth={2}
 							radius={8}
+							barSize={40}
+							height={20}
 							activeIndex={2}
 							activeBar={({ ...props }) => {
 								return (

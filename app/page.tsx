@@ -1,11 +1,11 @@
-import Dashbaord from "@/components/Dashboard/Dashbaord";
+import Home from "@/components/Home/Home";
 import React from "react";
 
 
 function page() {
 	return (
 		<div className="">
-			<Dashbaord/>
+			<Home/>
 		</div>
 	);
 }

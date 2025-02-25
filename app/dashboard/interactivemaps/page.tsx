@@ -1,10 +1,11 @@
 import React from 'react'
+import Map from '../overview/Map'
 
 function page() {
   return (
-    <div className='h-screen flex justify-center items-center'>
-        <p>Interactive Maps</p>
-    </div>
+	<div>
+		<Map />
+	</div>
   )
 }
 

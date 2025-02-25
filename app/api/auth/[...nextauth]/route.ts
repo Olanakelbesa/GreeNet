@@ -60,14 +60,14 @@ const handler = NextAuth({
 							provider: "google",
 						});
 						await user.save();
-						console.log("✅ User saved to database");
+						 console.log("✅ User saved to database");
 					} else {
-						console.log("✅ User already exists");
+						 console.log("✅ User already exists");
 					}
 				}
 				return true;
 			} catch (error) {
-				console.error("❌ Error during Google sign-in:", error);
+				 console.error("❌ Error during Google sign-in:", error);
 				return false;
 			}
 		},
@@ -82,7 +82,7 @@ const handler = NextAuth({
 			if (session?.user) {
 				session.user.id = token.id;
 			}
-			console.log("sessss:", session);
+			// console.log("sessss:", session);
 			return session;
 		},
 	},

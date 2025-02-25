@@ -43,25 +43,25 @@ function LoginPage() {
 		});
 		console.log(result);
 		if (!result?.error) {
-			router.push("/dashboard");
+			router.push("/dashboard/overview");
 		} else {
 			alert("Invaild credentials");
 		}
 	};
 
 	return (
-		<div className="flex justify-center items-center h-screen ">
-			<div className="w-[60%] border-2 border-solid border-gray-400 border-opacity-30 flex items-center gap-8 rounded-xl bg-gray-50 ">
-				<div>
+		<div className="flex justify-center items-center h-screen bg-gray-50 ">
+			<div className="max-sm  border-2 border-solid border-gray-400 border-opacity-30 shadow-lg flex items-center  rounded-xl bg-gray-50 ">
+				<div className="w-full hidden md:block  ">
 					<Image
 						src={person1}
 						alt="person"
 						width={430}
 						height={550}
-						className="p-2 "
+						className="py-1 pl-2 "
 					/>
 				</div>
-				<div className="w-[400px]">
+				<div className=" max-sm w-full max-w-[400px] px-10 py-8 md:px-5 md:py-4 ">
 					<p className="text-center text-4xl">GreeNet</p>
 					<div className="w-full mx-auto">
 						<form onSubmit={handleSubmit}>
@@ -128,7 +128,7 @@ function LoginPage() {
 							<div className="border-t-2 border-gray-500 w-28 mt-1"></div>
 						</div>
 						<div className="flex flex-col items-center gap-2 pt-3">
-							<button className="flex items-center  bg-gray-800 text-white w-full p-2 rounded-lg hover:text-gray-400 hover:bg-gray-700">
+							<button onClick={() => (router.push("/phone-number"))} className="flex items-center  bg-gray-800 text-white w-full p-2 rounded-lg hover:text-gray-400 hover:bg-gray-700">
 								<Image
 									src={phone}
 									alt="cell phone icon"

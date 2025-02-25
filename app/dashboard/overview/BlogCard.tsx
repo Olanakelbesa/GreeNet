@@ -6,7 +6,7 @@ import blogcard from "@/public/images/blogcard.png";
 
 const BlogCard = () => {
 	return (
-		<div className="shadow-md shadow-[#c1ffcf]  p-10 rounded-lg flex flex-col gap-2">
+		<div className="shadow-md shadow-[#c1ffcf] bg-white  p-10 rounded-lg flex flex-col gap-2">
 			<div className="">
 				<Image src={blogcard} alt="" className="w-full" width={324} height={180} />
 			</div>

@@ -131,7 +131,7 @@ function SideBar() {
 					onClick={handleSignOut} // Call the handleSignOut function
 					className="flex gap-2 w-full items-center mt-4 text-black  hover:text-[#29bb49] p-2"
 				>
-					<LuLogOut className="text-xl" />
+					<LuLogOut className="text-xl text-[#29bb49] " />
 					<p>LogOut</p>
 				</button>
 			</div>

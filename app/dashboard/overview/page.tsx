@@ -43,10 +43,10 @@ function Page() {
 					/>
 				</div>
 				<div className="">
-					<MarketStatus />
+					<MarketStatus isInMarket={false} />
 				</div>
 				<div>
-					<Croplist />
+					<Croplist isInMarket={false}/>
 				</div>
 				<div>
 					<Map />

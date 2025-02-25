@@ -34,7 +34,11 @@ const chartConfig = {
 	
 } satisfies ChartConfig;
 
-export function MarketStatus() {
+interface MarketStatusProps {
+	isInMarket: boolean,
+}
+
+export const MarketStatus: React.FC<MarketStatusProps> = ({isInMarket}) => {
 	return (
 		<div className="p-2 mt-3 rounded-tl-lg rounded-tr-lg bg-[#29bb49] bg-opacity-10 ">
 			<Card>
@@ -97,11 +101,11 @@ export function MarketStatus() {
 						</AreaChart>
 					</ChartContainer>
 				</CardContent>
-				<CardFooter>
+				{!isInMarket && (<CardFooter>
 					<div className="w-full py-3 bg-[#29bb49] bg-opacity-10 flex justify-center items-center rounded-lg">
                         <a href="./" className="text-[#29bb49] underline font-semibold hover:no-underline ">View Details</a>
                     </div>
-				</CardFooter>
+				</CardFooter>)}
 			</Card>
 		</div>
 	);

@@ -38,7 +38,7 @@ const NavBar = () => {
 				</div>
 				<div className="flex items-center font-semibold gap-8">
 					<Link href={"/home"}>Home</Link>
-					<Link href={"/dashboard"}>Dashboard</Link>
+					<Link href={"/dashboard/overview"}>Dashboard</Link>
 					<Link href={"/howitwork"}>How it work</Link>
 					<Link href={"/help"}>Help</Link>
 					<div className="">
@@ -51,7 +51,7 @@ const NavBar = () => {
 						<div className="w-[2px] h-8 bg-[#28bb49] mx-2 "></div>
 						<Image
 							className="rounded-full"
-							src={session.user?.image}
+							src={session?.user?.image? session?.user?.image : profilepic }
 							alt=""
 							width={35}
 							height={35}

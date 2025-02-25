@@ -3,9 +3,12 @@ import { BiDownArrow, BiUpArrow } from "react-icons/bi";
 import { Chart } from "./Chart";
 import { cropData } from "./cropData";
 
+interface CroplistProps {
+	isInMarket: boolean,
+}
 
 
-function Croplist() {
+export const Croplist: React.FC<CroplistProps> = ({isInMarket}) => {
 
 	return (
 		<div className="bg-[#29bb49] bg-opacity-10 p-2 rounded-bl-xl rounded-br-lg ">
@@ -48,9 +51,9 @@ function Croplist() {
 						</div>
 					))}
 					</div>
-					<div className="w-full py-3 bg-[#29bb49] bg-opacity-10 flex justify-center items-center rounded-lg">
+					{!isInMarket && (<div className="w-full py-3 bg-[#29bb49] bg-opacity-10 flex justify-center items-center rounded-lg">
                         <a href="./" className="text-[#29bb49] underline font-semibold hover:no-underline ">View Details</a>
-                    </div>
+                    </div>)}
 				</div>
 			</div>
 		</div>

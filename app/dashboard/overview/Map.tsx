@@ -28,12 +28,12 @@ function Map() {
 
 	return (
 		<div className="bg-[#29bb49] bg-opacity-10 rounded-lg p-2 mt-4">
-			<div className="bg-white border rounded-lg p-6">
+			<div className="bg-white dark:bg-[#282828] dark:border-[#282828] border rounded-lg p-6">
 				<div className="flex flex-col gap-4">
 					<h1 className="text-2xl font-semibold leading-none tracking-tight">
 						Interactive Map
 					</h1>
-					<p className="text-sm text-muted-foreground">
+					<p className="text-sm text-muted-foreground dark:text-gray-200">
 						Explore the Interactive Map: Navigate, Discover, and Engage with Key
 						Locations and Insights
 					</p>
@@ -42,7 +42,7 @@ function Map() {
 					<input
 						type="text"
 						placeholder="Find High Demand Area"
-						className="border-2 w-[80%] border-[#29bb49] border-opacity-40 rounded-lg p-2"
+						className="border-2 w-[80%] border-[#3f3f3f] border-opacity-40 dark:bg-[#3f3f3f] focus:outline-none focus:border-[#29bb49] rounded-lg p-2"
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
 					/>

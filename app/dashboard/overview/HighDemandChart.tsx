@@ -47,7 +47,7 @@ const chartConfig = {
 
 export function HighDemandChart() {
   return (
-    <Card className="border-none shadow-md shadow-[#c1ffcf] ">
+    <Card className="border-none shadow-md shadow-[#c1ffcf] dark:bg-[#282828] dark:text-white dark:shadow-[#575757] dark:shadow-md ">
       <CardHeader>
         <CardTitle className="text-xl text-center ">Top 4 Highest Demanding Crops</CardTitle>
       </CardHeader>

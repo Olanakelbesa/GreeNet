@@ -4,6 +4,8 @@ import "./globals.css";
 import NavBar from "@/components/NavBar";
 import { SessionProvider } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import {Provider} from "react-redux";
+import {store} from "@/app/redux/store";
 
 export default function RootLayout({
 	children,
@@ -17,8 +19,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className=" flex flex-col">
-				<SessionProvider>{!hideLayout && <NavBar />}</SessionProvider>
-				<main>{children}</main>
+				<Provider store={store}>
+					<SessionProvider>{!hideLayout && <NavBar />}</SessionProvider>
+					<main>{children}</main>
+				</Provider>
 			</body>
 		</html>
 	);

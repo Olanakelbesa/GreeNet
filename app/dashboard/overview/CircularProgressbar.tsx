@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { BiUpArrow } from "react-icons/bi";
 
 interface ProgressProps {
@@ -7,7 +6,7 @@ interface ProgressProps {
 	percentage: number;
 	isTemperature: boolean;
 	isWindSpeed: boolean;
-	image: string;
+	progressIcon: React.ReactNode;
 }
 
 const CircularProgressbar: React.FC<ProgressProps> = ({
@@ -16,7 +15,7 @@ const CircularProgressbar: React.FC<ProgressProps> = ({
 	percentage,
 	isTemperature,
 	isWindSpeed,
-	image,
+	progressIcon,
 }) => {
 	const radius = 50; // Radius of the circle
 	const circumference = 2 * Math.PI * radius; // Circumference of the circle
@@ -26,7 +25,7 @@ const CircularProgressbar: React.FC<ProgressProps> = ({
 		<div className=" flex-1 border border-solid border-[#29bb49] rounded-lg bg-[#29bb49] bg-opacity-5">
 			<div className="flex justify-between p-3">
 				<p>{name}</p>
-				<div className={`flex justify-between items-center bg-gray-100 rounded-lg text-xs ${percentage < 10 ? "text-red-300" : "text-[#29bb49]"} w-10 px-1`}>
+				<div className={`flex justify-between items-center bg-gray-100 dark:bg-[#3f3f3f] rounded-lg text-xs ${percentage < 10 ? "text-red-300" : "text-[#29bb49]"} w-10 px-1`}>
 					<BiUpArrow />
 					<p>{percentage}%</p>
 				</div>
@@ -57,7 +56,7 @@ const CircularProgressbar: React.FC<ProgressProps> = ({
 
 					{/* Temperature number */}
 					<div className="absolute flex justify-center items-center ">
-						<Image src={image} alt="" width={40} height={40} />
+						{progressIcon}
 					</div>
 				</div>
 			</div>

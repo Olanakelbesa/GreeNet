@@ -41,12 +41,12 @@ interface MarketStatusProps {
 export const MarketStatus: React.FC<MarketStatusProps> = ({isInMarket}) => {
 	return (
 		<div className="p-2 mt-3 rounded-tl-lg rounded-tr-lg bg-[#29bb49] bg-opacity-10 ">
-			<Card>
+			<Card className="dark:bg-[#282828] dark:text-white dark:border-[#282828]">
 				<CardHeader>
 					<div className="flex justify-between ">
 						<div className="flex flex-col gap-4">
 							<CardTitle>Market Status</CardTitle>
-							<CardDescription>
+							<CardDescription className="dark:text-gray-200">
 								Your sales performance is 30% better compare to last month
 							</CardDescription>
 						</div>

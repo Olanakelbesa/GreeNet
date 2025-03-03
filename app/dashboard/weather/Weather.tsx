@@ -51,7 +51,7 @@ function Weather() {
 	}
 	return (
 		<div className="px-6">
-			<div className="flex justify-between items-center ">
+			<div className="flex justify-between items-center dark:text-white ">
 				<div className="text-2xl font-semibold  py-3">Weather</div>
 				<div>
 					<div className="flex gap-4  w-full ">

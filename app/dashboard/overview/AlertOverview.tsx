@@ -1,12 +1,12 @@
 import React from "react";
 import alert from "@/public/images/alert.png";
 import Image from "next/image";
-import pricealert from "@/public/icons/pricealert.svg";
-import cloudplus from "@/public/icons/cloud-plus.svg";
+import { TrendingUp } from "lucide-react";
+import { TiWeatherCloudy } from "react-icons/ti";
 
 function AlertOverview() {
 	return (
-		<div className=" px-6 py-8 rounded-lg  shadow-md shadow-[#c1ffcf]">
+		<div className=" px-6 py-8 rounded-lg  shadow-md shadow-[#c1ffcf] dark:bg-[#282828] dark:text-white dark:shadow-[#575757] dark:shadow-md">
 			<div className="flex flex-col gap-2 justify-center items-center py-2">
 				<div className="w-20 h-20 bg-[#29bb49] bg-opacity-10 p-2  rounded-3xl flex justify-center ">
 					<Image src={alert} alt="alert" className="" />
@@ -16,7 +16,7 @@ function AlertOverview() {
 			<div className="flex flex-col gap-3 py-6">
 				<div className="flex flex-col gap-1">
 					<div className="flex gap-3">
-						<Image src={pricealert} alt="price alert" />
+						<TrendingUp />
 						<p className="">Price Alert</p>
 					</div>
 					<div className="flex gap-2 items-center px-3">
@@ -28,7 +28,7 @@ function AlertOverview() {
 				</div>
 				<div className="flex flex-col gap-1">
 					<div className="flex gap-3">
-						<Image src={cloudplus} alt="price alert" />
+						<TiWeatherCloudy size={24}/>
 						<p className="">Weather Alert</p>
 					</div>
 					<div className="flex gap-2 items-center px-3">

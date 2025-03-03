@@ -49,16 +49,16 @@ const chartConfig = {
 
 export function Barchart() {
 	return (
-		<Card className="border-none shadow-md shadow-[#c1ffcf]   ">
+		<Card className="border-none shadow-md shadow-[#c1ffcf] dark:bg-[#282828] dark:text-white dark:shadow-[#575757] dark:shadow-md  ">
 			<CardHeader>
 				<div className="flex justify-between ">
 					<div className="flex flex-col gap-4">
 						<CardTitle>Weekly Overview</CardTitle>
-						<CardDescription>
+						<CardDescription className="dark:text-gray-200">
 							Your sales performance is 30% better compare to last month
 						</CardDescription>
 					</div>
-					<div className="h-8 flex justify-center items-center gap-2 border border-opacity-30 p-1 px-2 rounded-lg border-[#29bb49]">
+					<div className=" h-8 flex justify-center items-center gap-2 border border-opacity-30 p-1 px-2 rounded-lg border-[#29bb49]">
 						<div className="border-2 border-[#29bb49] rounded-md p-0.5 opacity-40">
 							<BiDownArrow className="text-xs text-[#29bb49]" />
 						</div>

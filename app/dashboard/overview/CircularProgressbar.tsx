@@ -22,7 +22,7 @@ const CircularProgressbar: React.FC<ProgressProps> = ({
 	const offset = circumference - (progress / 100) * circumference; // Calculate the offset for the open part
 
 	return (
-		<div className=" flex-1 border border-solid border-[#29bb49] rounded-lg bg-[#29bb49] bg-opacity-5">
+		<div className=" flex-1 border border-solid border-[#29bb49] dark:bg-[#282828] dark:text-white dark:border-[#5] rounded-lg bg-[#29bb49] bg-opacity-5">
 			<div className="flex justify-between p-3">
 				<p>{name}</p>
 				<div className={`flex justify-between items-center bg-gray-100 dark:bg-[#3f3f3f] rounded-lg text-xs ${percentage < 10 ? "text-red-300" : "text-[#29bb49]"} w-10 px-1`}>

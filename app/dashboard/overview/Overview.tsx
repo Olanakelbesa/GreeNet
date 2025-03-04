@@ -3,7 +3,6 @@ import React from "react";
 import { MarketStatus } from "./MarketStatus";
 import Croplist from "./Croplist";
 import Map from "./Map";
-import { IoFilterOutline, IoSettingsOutline } from "react-icons/io5";
 import { Barchart } from "@/app/dashboard/overview/WeeklyOverviewBarChart";
 import { HighDemandChart } from "@/app/dashboard/overview/HighDemandChart";
 import AlertOverview from "./AlertOverview";
@@ -11,6 +10,7 @@ import BlogCard from "./BlogCard";
 import VideoCard from "./video";
 import { Sun, Wind } from "lucide-react";
 import { MdOutlineWaterDrop } from "react-icons/md";
+import Setting from "@/components/Dashboard/Setting";
 
 function Overview() {
 	return (
@@ -54,16 +54,7 @@ function Overview() {
 				</div>
 			</div>
 			<div className="right w-[40%] flex flex-col gap-4  ">
-				<div className="flex gap-4 justify-end w-full pt-2">
-					<button className="flex items-center gap-2 border border-[#29bb49] dark:bg-[#3f3f3f] border-opacity-20 rounded-lg p-2 px-3 ">
-						<IoSettingsOutline />
-						<p>Setting</p>
-					</button>
-					<button className="flex items-center gap-2 border border-[#29bb49] dark:bg-[#3f3f3f] border-opacity-20 rounded-lg p-2 px-3 ">
-						<IoFilterOutline />
-						<p>Filter</p>
-					</button>
-				</div>
+				<Setting/>
 				<div className="">
 					<Barchart />
 				</div>

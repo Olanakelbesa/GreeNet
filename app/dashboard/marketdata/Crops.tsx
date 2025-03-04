@@ -10,7 +10,7 @@ interface CropsProps {
 
 const Crops: React.FC<CropsProps> = ({crop, percent}) => {
   return (
-    <div className='flex items-center gap-2  py-3 px-4 rounded-lg shadow-md '>
+    <div className='flex items-center gap-2 dark:bg-[#282828] py-3 px-4 rounded-lg shadow-md '>
         <p className='text-lg font-medium'>{crop}</p>
         <div className={`flex gap-2 ${percent < 10 ? "bg-red-400 text-red-400" : "bg-[#29bb49] text-[#29bb49]" } bg-opacity-5 rounded-sm px-4 py-1 `}>
             <Image src={percent < 10 ? TrandDown : TrandUp} alt='trand up' width={20} height={20} />

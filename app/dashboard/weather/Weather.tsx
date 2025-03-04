@@ -10,6 +10,9 @@ import {
 import Forecast from "./Forecast";
 import axios from "axios";
 import WeatherNews from "./WeatherNews";
+import { Cloud, Sun, Wind } from "lucide-react";
+import { MdOutlineWaterDrop } from "react-icons/md";
+import Setting from "@/components/Dashboard/Setting";
 
 function Weather() {
 	const [currentWeather, setCurrentWeather] = useState("");
@@ -54,16 +57,7 @@ function Weather() {
 			<div className="flex justify-between items-center dark:text-white ">
 				<div className="text-2xl font-semibold  py-3">Weather</div>
 				<div>
-					<div className="flex gap-4  w-full ">
-						<button className="flex items-center gap-2 border border-[#29bb49] border-opacity-20 rounded-lg p-2 px-3 ">
-							<IoSettingsOutline />
-							<p>Setting</p>
-						</button>
-						<button className="flex items-center gap-2 border border-[#29bb49] border-opacity-20 rounded-lg p-2 px-3 ">
-							<IoFilterOutline />
-							<p>Filter</p>
-						</button>
-					</div>
+					<Setting/>
 				</div>
 			</div>
 			<form onSubmit={handleSearch} className="w-[60%] flex gap-2 items-center py-4">
@@ -71,14 +65,14 @@ function Weather() {
 					type="text"
 					value={inputValue}
 					placeholder="Search by city"
-					className="border-2 w-[80%] border-[#29bb49] border-opacity-40 rounded-lg p-2 px-4"
+					className="border-2 w-[80%] border-[#3f3f3f] border-opacity-40 dark:bg-[#3f3f3f] focus:outline-none focus:border-[#29bb49] rounded-lg p-2 px-4"
 					onChange={(e) => setInputValue(e.target.value)}
 				/>
 				<button type="submit"  className="w-[20%] text-center bg-[#29bb49] p-2 rounded-lg text-white font-semibold cursor-pointer">
 					Search
 				</button>
 			</form>
-			<div className="">
+			<div className="dark:text-white">
 				<div className="fle flex-col gap-2">
 					<h1 className="text-lg font-semibold ">Region</h1>
 					<div className="flex gap-1 items-center py-2">
@@ -95,7 +89,7 @@ function Weather() {
 						percentage={15}
 						isTemperature={true}
 						isWindSpeed={false}
-						image={"/images/sun.png"}
+						progressIcon={<Sun size={24}/>}
 					/>
 					<CircularProgressbar
 						name="Humidity"
@@ -103,7 +97,7 @@ function Weather() {
 						percentage={10}
 						isTemperature={false}
 						isWindSpeed={false}
-						image={"/images/drop.png"}
+						progressIcon={<MdOutlineWaterDrop size={24}/>}
 					/>
 					<CircularProgressbar
 						name="Precipitation"
@@ -111,7 +105,7 @@ function Weather() {
 						percentage={5}
 						isTemperature={false}
 						isWindSpeed={false}
-						image={"/images/cloud-drizzle.png"}
+						progressIcon={<Cloud size={24}/>}
 					/>
 					<CircularProgressbar
 						name="Wind Speed"
@@ -119,7 +113,7 @@ function Weather() {
 						percentage={5}
 						isTemperature={false}
 						isWindSpeed={true}
-						image={"/images/wind.png"}
+						progressIcon={<Wind size={24}/>}
 					/>
 				</div>
 			</div>

@@ -27,7 +27,7 @@ function Map() {
 	};
 
 	return (
-		<div className="bg-[#29bb49] bg-opacity-10 rounded-lg p-2 mt-4">
+		<div className="bg-[#29bb49] dark:text-white bg-opacity-10 rounded-lg p-2 mt-4">
 			<div className="bg-white dark:bg-[#282828] dark:border-[#282828] border rounded-lg p-6">
 				<div className="flex flex-col gap-4">
 					<h1 className="text-2xl font-semibold leading-none tracking-tight">

@@ -5,10 +5,9 @@ import {
 	ChartConfig,
 	ChartContainer,
 	ChartTooltip,
-	ChartTooltipContent,
+	
 } from "@/components/ui/chart";
 import Image from "next/image";
-import { Tooltip, TooltipContent } from "@radix-ui/react-tooltip";
 import { MdWaterDrop } from "react-icons/md";
 
 interface WeatherStatusProps {
@@ -33,7 +32,7 @@ const CustomToolTip = ({ active, payload, label }: any) => {
 			forecastPercent,
 		} = payload[0].payload;
 		return (
-			<div className="border bg-white rounded-lg min-w-44 px-4 py-2 ">
+			<div className="border bg-white dark:bg-[#121212] rounded-lg min-w-44 px-4 py-2 ">
 				<p className="font-semibold">{day}</p>
 				<div className="flex items-center justify-between ">
 					<div className="flex items-center gap-2">
@@ -103,7 +102,7 @@ export function WeatherStatus({ forecastDays }: WeatherStatusProps) {
 	} satisfies ChartConfig;
 
 	return (
-		<Card className="border-none w-[80%]">
+		<Card className="border-none w-[80%] dark:bg-[#282828] text-white">
 			<CardHeader>
 				<CardTitle className="text-lg">7-days forecast</CardTitle>
 			</CardHeader>

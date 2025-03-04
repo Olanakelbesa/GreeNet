@@ -97,8 +97,8 @@ const Forecast: React.FC<ForecastProps> = ({ city }) => {
 	);
 
 	return (
-		<div className="bg-[#29bb49] bg-opacity-10 p-2 rounded-lg mt-4">
-			<div className="bg-white w-full shadow p-4 rounded-lg">
+		<div className="bg-[#29bb49]  bg-opacity-10 p-2 rounded-lg mt-4">
+			<div className="bg-white dark:bg-[#282828] dark:text-white w-full shadow p-4 rounded-lg">
 				<div className="flex justify-between">
 					<p className="text-lg font-semibold">Forecast</p>
 					<div className="flex items-center gap-4">

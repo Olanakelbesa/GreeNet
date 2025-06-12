@@ -23,9 +23,9 @@ export async function GET(req: NextRequest) {
 
 		const data = await response.json();
 		return NextResponse.json(data);
-	} catch (error: any) {
-		console.error(error?.message);
-		return NextResponse.json( // ✅ Added return here
+	} catch (error) {
+		console.error(error instanceof Error ? error.message : 'Unknown error occurred');
+		return NextResponse.json(
 			{ error: "Failed to fetch current weather data" },
 			{ status: 500 }
 		);

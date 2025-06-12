@@ -1,126 +1,181 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import CircularProgressbar from "../overview/CircularProgressbar";
-import {
-	IoFilterOutline,
-	IoLocationOutline,
-	IoSettingsOutline,
-} from "react-icons/io5";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { WeatherStatus } from "./WeatherStatus";
 import Forecast from "./Forecast";
-import axios from "axios";
-import WeatherNews from "./WeatherNews";
-import { Cloud, Sun, Wind } from "lucide-react";
-import { MdOutlineWaterDrop } from "react-icons/md";
-import Setting from "@/components/Dashboard/Setting";
+import { IoSearchOutline } from "react-icons/io5";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
-function Weather() {
-	const [currentWeather, setCurrentWeather] = useState("");
-	const [city, setCity] = useState("Addis Ababa");
-	const [precipitation, setPrecipitation] = useState(0);
-	const [inputValue, setInputValue] = useState("");
-
-	useEffect(() => {
-		const fetchCurrentWeather = async () => {
-			try {
-				const response = await axios.get("/api/weather/current", {
-					params: { city },
-				});
-				// console.log("current weather1111111111: ", currentWeather);
-				setCurrentWeather(response.data);
-				setPrecipitation(response.data.precip_mm ?? 0);
-			} catch (error) {
-				console.error("Error fetching current weather: ", error);
-			}
-		};
-
-		fetchCurrentWeather();
-	}, [city]);
-
-	const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setCity(inputValue);
-	}
-	const maxPrecipitation = 10;
-	const percentagePrecipitation = (precipitation / maxPrecipitation) * 10;
-	console.log("precipitation:", precipitation);
-	console.log("Current weather: ", currentWeather);
-	if (!currentWeather) {
-		return (
-			<div className="text-[#29bb49] flex justify-center items-center h-screen">
-				Loading...
-			</div>
-		);
-	}
-	return (
-		<div className="px-6">
-			<div className="flex justify-between items-center dark:text-white ">
-				<div className="text-2xl font-semibold  py-3">Weather</div>
-				<div>
-					<Setting/>
-				</div>
-			</div>
-			<form onSubmit={handleSearch} className="w-[60%] flex gap-2 items-center py-4">
-				<input
-					type="text"
-					value={inputValue}
-					placeholder="Search by city"
-					className="border-2 w-[80%] border-[#3f3f3f] border-opacity-40 dark:bg-[#3f3f3f] focus:outline-none focus:border-[#29bb49] rounded-lg p-2 px-4"
-					onChange={(e) => setInputValue(e.target.value)}
-				/>
-				<button type="submit"  className="w-[20%] text-center bg-[#29bb49] p-2 rounded-lg text-white font-semibold cursor-pointer">
-					Search
-				</button>
-			</form>
-			<div className="dark:text-white">
-				<div className="fle flex-col gap-2">
-					<h1 className="text-lg font-semibold ">Region</h1>
-					<div className="flex gap-1 items-center py-2">
-						<IoLocationOutline />
-						<p>
-							{city}, {currentWeather?.location?.country}
-						</p>
-					</div>
-				</div>
-				<div className="flex gap-4 flex-wrap justify-between  ">
-					<CircularProgressbar
-						name="Temperature"
-						progress={currentWeather.current?.temp_c}
-						percentage={15}
-						isTemperature={true}
-						isWindSpeed={false}
-						progressIcon={<Sun size={24}/>}
-					/>
-					<CircularProgressbar
-						name="Humidity"
-						progress={currentWeather.current.humidity}
-						percentage={10}
-						isTemperature={false}
-						isWindSpeed={false}
-						progressIcon={<MdOutlineWaterDrop size={24}/>}
-					/>
-					<CircularProgressbar
-						name="Precipitation"
-						progress={percentagePrecipitation}
-						percentage={5}
-						isTemperature={false}
-						isWindSpeed={false}
-						progressIcon={<Cloud size={24}/>}
-					/>
-					<CircularProgressbar
-						name="Wind Speed"
-						progress={currentWeather.current.wind_kph}
-						percentage={5}
-						isTemperature={false}
-						isWindSpeed={true}
-						progressIcon={<Wind size={24}/>}
-					/>
-				</div>
-			</div>
-			<Forecast city={city} />
-			<WeatherNews />
-		</div>
-	);
+interface WeatherData {
+  location: {
+    name: string;
+    country: string;
+  };
+  current: {
+    temp_c: number;
+    humidity: number;
+    wind_kph: number;
+    precip_mm: number;
+    condition: {
+      text: string;
+      icon: string;
+    };
+  };
 }
 
-export default Weather;
+export default function Weather() {
+  const [city, setCity] = useState("");
+  const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(
+    null
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (city) {
+      fetchCurrentWeather();
+    }
+  }, [city]);
+
+  const fetchCurrentWeather = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(
+        `/api/weather/current?city=${encodeURIComponent(city)}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch weather data");
+      }
+      const data = await response.json();
+      setCurrentWeather(data);
+    } catch (error) {
+      console.error("Error fetching weather:", error);
+      setError("Failed to fetch weather data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchCurrentWeather();
+  };
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Weather</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+            <Input
+              type="text"
+              placeholder="Enter city name"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="flex-1"
+            />
+            <Button type="submit">
+              <IoSearchOutline className="h-5 w-5" />
+            </Button>
+          </form>
+
+          {loading && <p>Loading weather data...</p>}
+          {error && <p className="text-red-500">{error}</p>}
+
+          {currentWeather && (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-semibold">
+                    {currentWeather.location.name}
+                  </h3>
+                  <p className="text-gray-500">
+                    {currentWeather.location.country}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={`https:${currentWeather.current.condition.icon}`}
+                    alt={currentWeather.current.condition.text}
+                    width={50}
+                    height={50}
+                  />
+                  <span>{currentWeather.current.condition.text}</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex flex-col items-center">
+                  <CircularProgressbar
+                    value={currentWeather.current.temp_c}
+                    maxValue={50}
+                    text={`${currentWeather.current.temp_c}°C`}
+                    styles={buildStyles({
+                      pathColor: "#29bb49",
+                      textColor: "#29bb49",
+                    })}
+                  />
+                  <p className="mt-2">Temperature</p>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <CircularProgressbar
+                    value={currentWeather.current.humidity}
+                    maxValue={100}
+                    text={`${currentWeather.current.humidity}%`}
+                    styles={buildStyles({
+                      pathColor: "#29bb49",
+                      textColor: "#29bb49",
+                    })}
+                  />
+                  <p className="mt-2">Humidity</p>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <CircularProgressbar
+                    value={currentWeather.current.wind_kph}
+                    maxValue={100}
+                    text={`${currentWeather.current.wind_kph} km/h`}
+                    styles={buildStyles({
+                      pathColor: "#29bb49",
+                      textColor: "#29bb49",
+                    })}
+                  />
+                  <p className="mt-2">Wind Speed</p>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <CircularProgressbar
+                    value={currentWeather.current.precip_mm}
+                    maxValue={100}
+                    text={`${currentWeather.current.precip_mm} mm`}
+                    styles={buildStyles({
+                      pathColor: "#29bb49",
+                      textColor: "#29bb49",
+                    })}
+                  />
+                  <p className="mt-2">Precipitation</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {currentWeather && (
+        <>
+          <Forecast city={city} />
+          <WeatherStatus forecastDays={[]} />
+        </>
+      )}
+    </div>
+  );
+}

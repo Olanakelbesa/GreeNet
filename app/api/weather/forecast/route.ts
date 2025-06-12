@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
 	try {
 		const apikey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 		const response = await fetch(
-			`http://api.weatherapi.com/v1/forecast.json?key=${apikey}&q=${city}&days=${7} `
+			`http://api.weatherapi.com/v1/forecast.json?key=${apikey}&q=${city}&days=${7}`
 		);
 		
 		if(!response.ok){
@@ -21,8 +21,8 @@ export async function GET(req: NextRequest) {
 		}
 		const data = await response.json();
 		return NextResponse.json(data);
-	} catch (error: any) {
-		console.error(error?.message);
+	} catch (error) {
+		console.error(error instanceof Error ? error.message : 'Unknown error occurred');
 		return NextResponse.json(
 			{ error: "Failed to fetch weather forecast data." },
 			{ status: 500 }

@@ -18,7 +18,8 @@ export async function POST(req: Request) {
 
         return NextResponse.json({message: "User created successfully"}, {status: 201});
 
-    } catch(e){
-        return NextResponse.json({message: e.message}, {status: 500});
+    } catch(e) {
+        const error = e as Error;
+        return NextResponse.json({message: error.message}, {status: 500});
     }
 }

@@ -5,12 +5,28 @@ import bcrypt from "bcrypt";
 import User from "@/models/User";
 import { connectToDB } from "@/lib/mongodb";
 
+declare module "next-auth" {
+	interface Session {
+		user: {
+			id: string;
+			name?: string | null;
+			email?: string | null;
+			image?: string | null;
+		}
+	}
+}
+
+declare module "next-auth/jwt" {
+	interface JWT {
+		id: string;
+	}
+}
+
 const handler = NextAuth({
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID!,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-			
 		}),
 		CredentialsProvider({
 			name: "Credentials",
@@ -43,8 +59,6 @@ const handler = NextAuth({
 				if (account?.provider === "google") {
 					await connectToDB();
 
-					// console.log("Google profile:", profile );
-		
 					if (!profile?.email) {
 						console.error("❌ No email in Google profile");
 						return false; 
@@ -56,22 +70,21 @@ const handler = NextAuth({
 						user = new User({
 							name: profile?.name,
 							email: profile?.email,
-							image: profile?.picture,
+							image: profile?.image,
 							provider: "google",
 						});
 						await user.save();
-						 console.log("✅ User saved to database");
+						console.log("✅ User saved to database");
 					} else {
-						 console.log("✅ User already exists");
+						console.log("✅ User already exists");
 					}
 				}
 				return true;
 			} catch (error) {
-				 console.error("❌ Error during Google sign-in:", error);
+				console.error("❌ Error during Google sign-in:", error);
 				return false;
 			}
 		},
-		
 
 		async jwt({ token, user }) {
 			if (user) token.id = user.id;
@@ -82,7 +95,6 @@ const handler = NextAuth({
 			if (session?.user) {
 				session.user.id = token.id;
 			}
-			// console.log("sessss:", session);
 			return session;
 		},
 	},

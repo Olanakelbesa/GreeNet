@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { WeatherStatus } from "./WeatherStatus";
@@ -36,13 +36,7 @@ export default function Weather() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (city) {
-      fetchCurrentWeather();
-    }
-  }, [city]);
-
-  const fetchCurrentWeather = async () => {
+  const fetchCurrentWeather = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
@@ -60,7 +54,13 @@ export default function Weather() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [city]);
+
+  useEffect(() => {
+    if (city) {
+      fetchCurrentWeather();
+    }
+  }, [city, fetchCurrentWeather]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

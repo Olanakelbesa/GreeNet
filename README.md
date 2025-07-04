@@ -35,18 +35,6 @@ Before you begin, ensure you have:
 - MongoDB Atlas account
 - Google OAuth credentials (for Google Sign-in)
 
-## Environment Variables
-
-Create a `.env.local` file in the root directory with the following variables:
-
-```env
-MONGODB_URI=your_mongodb_connection_string
-NEXTAUTH_SECRET=your_nextauth_secret
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-WEATHER_API_KEY=your_weather_api_key
-```
-
 ## Installation
 
 1. Clone the repository:

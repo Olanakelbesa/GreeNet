@@ -10,11 +10,13 @@ import viewPwd from "@/public/icons/view.png";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Toaster, toast } from "react-hot-toast";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPwd, setShowPwd] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const router = useRouter();
 
   const handleShowPwd = () => {
@@ -24,35 +26,42 @@ function LoginPage() {
   const handleGoogleSignIn = async () => {
     try {
       const result = await signIn("google", { callbackUrl: "/dashboard" });
-      console.log("Google sign-in result:", result);
-
       if (result?.error) {
-        alert("Google sign-in failed: " + result.error);
+        toast.error("Google sign-in failed: " + result.error);
       }
     } catch (error) {
       console.error("Google sign-in error:", error);
+      toast.error("Google sign-in error. Please try again.");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errors: { [key: string]: string } = {};
+    if (!email) errors.email = "Email is required.";
+    if (!password) errors.password = "Password is required.";
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
     const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
-    console.log(result);
+
     if (!result?.error) {
-      router.push("/personalization");
+      toast.success("Login successful!");
+      setTimeout(() => router.push("/personalization"), 1200);
     } else {
-      alert("Invaild credentials");
+      toast.error("Invalid credentials");
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50 ">
-      <div className="max-sm  border-2 border-solid border-gray-400 border-opacity-30 shadow-lg flex items-center  rounded-xl bg-gray-50 ">
-        <div className="w-full hidden md:block  ">
+      <Toaster position="top-center" reverseOrder={false} />
+      <div className="max-sm border-2 border-solid border-gray-400 border-opacity-30 shadow-lg flex items-center rounded-xl bg-gray-50 ">
+        <div className="w-full hidden md:block">
           <Image
             src={person1}
             alt="person"
@@ -61,7 +70,7 @@ function LoginPage() {
             className="py-1 pl-2 "
           />
         </div>
-        <div className=" max-sm w-full max-w-[400px] px-10 py-8 md:px-5 md:py-4 ">
+        <div className="max-sm w-full max-w-[400px] px-10 py-8 md:px-5 md:py-4 ">
           <Link href={"/"} className="text-green-500 hover:text-green-600 py-2">
             <p className="text-center text-4xl">GreeNet</p>
           </Link>
@@ -75,7 +84,6 @@ function LoginPage() {
                   <div className="relative">
                     <input
                       type="email"
-                      required
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="example@gmail.com"
                       className=" text-sm p-2 w-full rounded-lg border-2 border-solid border-gray-400 border-opacity-20"
@@ -88,6 +96,9 @@ function LoginPage() {
                       className="absolute right-3 top-3"
                     />
                   </div>
+                  {fieldErrors.email && (
+                    <p className="text-red-500 text-xs mt-1">{fieldErrors.email}</p>
+                  )}
                 </div>
                 <div className="flex flex-col gap-2">
                   <label htmlFor="" className="text-sm">
@@ -96,7 +107,6 @@ function LoginPage() {
                   <div className="relative">
                     <input
                       type={showPwd ? "text" : "password"}
-                      required
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="password"
                       className=" text-sm p-2 w-full rounded-lg border-2 border-solid border-gray-400 border-opacity-20"
@@ -110,6 +120,9 @@ function LoginPage() {
                       className="absolute right-3 top-3"
                     />
                   </div>
+                  {fieldErrors.password && (
+                    <p className="text-red-500 text-xs mt-1">{fieldErrors.password}</p>
+                  )}
                 </div>
               </div>
               <div className="text-green-500 underline text-sm text-end hover:text-green-400 hover:no-underline pt-2 pb-4 ">

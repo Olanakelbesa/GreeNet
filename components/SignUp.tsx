@@ -11,6 +11,7 @@ import viewPassword from "@/public/icons/view.png";
 import hidePassword from "@/public/icons/hidden.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Toaster, toast } from "react-hot-toast"; // Add toaster
 
 interface SignUpResponse {
   message: string;
@@ -22,21 +23,25 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPdw, setShowPdw] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMessage("");
+    const errors: { [key: string]: string } = {};
 
-    if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match!");
-      return;
+    if (!name) errors.name = "Name is required.";
+    if (!email) errors.email = "Email is required.";
+    if (!password) errors.password = "Password is required.";
+    if (!confirmPassword)
+      errors.confirmPassword = "Confirm password is required.";
+    if (password && confirmPassword && password !== confirmPassword) {
+      errors.confirmPassword = "Passwords do not match!";
     }
-    if (!name || !email || !password) {
-      setErrorMessage("All fields are required.");
-      return;
-    }
+
+    setFieldErrors(errors);
+
+    if (Object.keys(errors).length > 0) return;
 
     try {
       const result = await fetch("http://localhost:3000/api/auth/signup", {
@@ -48,14 +53,20 @@ function SignUp() {
       const data = (await result.json()) as SignUpResponse;
 
       if (result.ok) {
-        alert("Account created successfully! Please log in.");
-        router.push("/login");
+        toast.success("Account created successfully! Please log in.");
+        setTimeout(() => router.push("/login"), 1500);
       } else {
-        setErrorMessage(data.message || "Signup failed. Please try again.");
+        setFieldErrors({
+          general: data.message || "Signup failed. Please try again.",
+        });
+        toast.error(data.message || "Signup failed. Please try again.");
       }
     } catch (error) {
       console.error("Signup error:", error);
-      setErrorMessage("An unexpected error occurred. Please try again later.");
+      setFieldErrors({
+        general: "An unexpected error occurred. Please try again later.",
+      });
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
 
@@ -65,10 +76,14 @@ function SignUp() {
 
   return (
     <div className="flex justify-center items-center h-screen px-4 bg-gray-50 ">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="border-2 border-gray-400 shadow-lg border-opacity-30 flex flex-col md:flex-row items-center rounded-xl bg-gray-50 max-w-4xl w-full">
         <div className="w-full max-w-[430px]">
           <form onSubmit={handleSubmit} className="w-full py-6 px-6 md:px-8">
-            <Link href={"/"} className="text-green-500 hover:text-green-600 py-2">
+            <Link
+              href={"/"}
+              className="text-green-500 hover:text-green-600 py-2"
+            >
               <p className="text-center text-4xl">GreeNet</p>
             </Link>
             <div className="w-full mx-auto py-3">
@@ -91,6 +106,11 @@ function SignUp() {
                       className="absolute right-3 top-3"
                     />
                   </div>
+                  {fieldErrors.name && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {fieldErrors.name}
+                    </p>
+                  )}
                 </div>
 
                 {/* Email Field */}
@@ -111,6 +131,11 @@ function SignUp() {
                       className="absolute right-3 top-3"
                     />
                   </div>
+                  {fieldErrors.email && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {fieldErrors.email}
+                    </p>
+                  )}
                 </div>
 
                 {/* Password Field */}
@@ -132,6 +157,11 @@ function SignUp() {
                       className="absolute right-3 top-3 cursor-pointer"
                     />
                   </div>
+                  {fieldErrors.password && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {fieldErrors.password}
+                    </p>
+                  )}
                 </div>
 
                 {/* Confirm Password Field */}
@@ -153,11 +183,18 @@ function SignUp() {
                       className="absolute right-3 top-3 cursor-pointer"
                     />
                   </div>
+                  {fieldErrors.confirmPassword && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {fieldErrors.confirmPassword}
+                    </p>
+                  )}
                 </div>
               </div>
 
-              {errorMessage && (
-                <p className="text-red-500 text-center pb-2">{errorMessage}</p>
+              {fieldErrors.general && (
+                <p className="text-red-500 text-center pb-2">
+                  {fieldErrors.general}
+                </p>
               )}
 
               <button

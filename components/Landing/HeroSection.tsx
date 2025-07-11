@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import dashboard from "@/public/images/dashboard.png";
 import leftleaf from "@/public/images/left-leaf.png";
 import rightleaf from "@/public/images/right-leaf.png";
 import Link from "next/link";

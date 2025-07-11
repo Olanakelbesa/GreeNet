@@ -1,5 +1,5 @@
 "use client";
-// import { metadata } from "./metadata";
+import { metadata } from "./metadata";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import { SessionProvider } from "next-auth/react";

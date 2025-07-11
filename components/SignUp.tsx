@@ -68,9 +68,9 @@ function SignUp() {
       <div className="border-2 border-gray-400 shadow-lg border-opacity-30 flex flex-col md:flex-row items-center rounded-xl bg-gray-50 max-w-4xl w-full">
         <div className="w-full max-w-[430px]">
           <form onSubmit={handleSubmit} className="w-full py-6 px-6 md:px-8">
-            <p className="text-center text-3xl md:text-4xl font-semibold">
-              GreeNet
-            </p>
+            <Link href={"/"} className="text-green-500 hover:text-green-600 py-2">
+              <p className="text-center text-4xl">GreeNet</p>
+            </Link>
             <div className="w-full mx-auto py-3">
               <div className="flex flex-col gap-4 pb-5">
                 {/* Name Field */}

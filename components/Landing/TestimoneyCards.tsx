@@ -12,14 +12,14 @@ interface TestimoneyProps {
 
 const TestimoneyCards: React.FC<TestimoneyProps> = ({ testimonial, isMiddle}) => {
 	return (
-		<div className={`w-[33%] bg-white px-10 py-8 rounded-xl shadow-lg  ${isMiddle? "h-[60vh]" : "h-76"} `}>
-			<div className={`flex ${isMiddle? "justify-center" : "justify-between"}`}>
+		<div className={`w-full lg:w-[33%] bg-white px-10 py-8 rounded-xl shadow-lg  ${isMiddle? "h-[60vh]" : "h-76"} `}>
+			<div className={`flex ${isMiddle? "justify-between lg:justify-center" : "justify-between"}`}>
 				<div className={`flex items-center gap-2 ${isMiddle? "flex-col jus" : ""}`}>
-					<div className={`bg-[#29BB49] ${isMiddle? "w-40 h-40" : "w-24 h-24"} rounded-full flex justify-center items-center`}>
+					<div className={`bg-[#29BB49] ${isMiddle? "w-24 h-24 lg:w-40 lg:h-40" : "w-24 h-24"} rounded-full flex justify-center items-center`}>
 						<Image
 							src={person3}
 							alt=""
-							className={` rounded-full  ${isMiddle? "w-36" : "w-[90%]"} `}
+							className={` rounded-full  ${isMiddle? "w-[90%] lg:w-36" : "w-[90%]"} `}
 							
 						/>
 					</div>
@@ -27,7 +27,7 @@ const TestimoneyCards: React.FC<TestimoneyProps> = ({ testimonial, isMiddle}) =>
 				</div>
 			</div>
             <div className="flex items-end justify-end -mt-6 ">
-					<FaQuoteRight className= {` ${isMiddle? "text-gray-400" : "text-[#29BB49]"} text-6xl text-opacity-20 `}/>
+					<FaQuoteRight className= {` ${isMiddle? "text-[#29BB49] lg:text-gray-400" : "text-[#29BB49]"} text-6xl text-opacity-20 `}/>
 				</div>
 			<div>
 				<p className="text-lg ">

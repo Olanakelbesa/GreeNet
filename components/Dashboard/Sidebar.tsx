@@ -152,7 +152,7 @@ function SideBar() {
 					className="flex gap-2 w-full items-center mt-4 text-black dark:text-white  hover:text-[#29bb49] p-2"
 				>
 					<LuLogOut className="text-xl text-[#29bb49] " />
-					<p>LogOut</p>
+					<p>Logout</p>
 				</button>
 			</div>
 		</div>

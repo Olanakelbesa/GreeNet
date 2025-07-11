@@ -1,86 +1,138 @@
 "use client";
 
-import Image from "next/image";
-import Logo from "@/public/images/logo-1.png";
-import search from "@/public/images/Vector.png";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { IoNotificationsOutline } from "react-icons/io5";
+import { Menu } from "lucide-react";
 import profilepic from "@/public/images/profilepic.jpg";
 
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
 const NavBar = () => {
-	const { data: session } = useSession();
-	const [userName, setUserName] = useState(session?.user?.name || "");
+  const { data: session } = useSession();
+  const [userName, setUserName] = useState(session?.user?.name || "");
 
-	useEffect(() => {
-		if (session?.user?.name) {
-			setUserName(
-				session?.user?.name[0].toUpperCase() + session.user.name.slice(1)
-			);
-		}
-	}, [session]);
+  useEffect(() => {
+    if (session?.user?.name) {
+      setUserName(session.user.name[0].toUpperCase() + session.user.name.slice(1));
+    }
+  }, [session]);
 
-	return (
-		<div className="h-16">
-			<nav className="h-16 z-40 fixed w-full bg-white dark:bg-[#282828] dark:text-white flex items-center justify-around  shadow-md py-1  ">
-				<div className="flex items-center">
-					<Image
-						src={Logo}
-						alt="logo"
-						width={20}
-						height={20}
-						className="rounded-full w-full p-3"
-					/>
-					<p className="text-lg font-semibold">
-						GreeNet<span className="text-green-500">.</span>
-					</p>
-				</div>
-				<div className="flex items-center font-semibold gap-8">
-					<Link href={"/home"}>Home</Link>
-					<Link href={"/dashboard/overview"}>Dashboard</Link>
-					<Link href={"/howitwork"}>How it work</Link>
-					<Link href={"/help"}>Help</Link>
-					<div className="">
-						<Image src={search} alt="search" width={18} height={18} />
-					</div>
-				</div>
-				{session ? (
-					<div className="flex items-center ">
-						<IoNotificationsOutline className="text-2xl text-[#29bb49]" />
-						<div className="w-[2px] h-8 bg-[#28bb49] mx-2 "></div>
-						<Image
-							className="rounded-full"
-							src={session?.user?.image? session?.user?.image : profilepic }
-							alt=""
-							width={35}
-							height={35}
-						/>
+  return (
+    <header className="fixed top-0 z-50 w-full mb-2  bg-white dark:bg-[#282828] dark:text-white shadow-sm border-b">
+      <div className="flex items-center justify-between max-w-7xl mx-auto px-4 h-16">
+        {/* Logo */}
+        <Link href={"/"} className="flex items-center gap-2">
+          <Image src="/logo.svg" alt="logo" width={30} height={30} />
+          <p className="text-xl font-semibold">
+            GreeNet<span className="text-green-500 text-2xl">.</span>
+          </p>
+        </Link >
 
-						<div className="px-2 flex flex-col justify-center py-2">
-							<p className="font-semibold text-lg">{userName}</p>
-							<p className="text-sm text-gray-400">{session.user?.email}</p>
-						</div>
-					</div>
-				) : (
-					<div className="flex items-center gap-4">
-						<Link
-							href={"/login"}
-							className="border-2 border-solid border-green-500 py-2 px-6 text-green-500 text-sm font-semibold rounded-xl "
-						>
-							LogIn
-						</Link>
-						<Link
-							href={"/signup"}
-							className="bg-green-500 text-white text-sm font-semibold py-2 px-6 rounded-xl "
-						>
-							SignUp
-						</Link>
-					</div>
-				)}
-			</nav>
-		</div>
-	);
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex items-center gap-8 font-semibold">
+          <Link href="/">Home</Link>
+          <Link href="#feature">Feature</Link>
+          <Link href="#howitwork">How it work</Link>
+          <Link href="#testimoney">Testimoney</Link>
+          <Link href="#pricing">Pricing</Link>
+        </nav>
+
+        {/* Auth / Profile (Desktop) */}
+        <div className="hidden md:flex items-center gap-4">
+          {session ? (
+            <div className="flex items-center gap-3">
+              <IoNotificationsOutline className="text-2xl text-green-500" />
+              <Separator orientation="vertical" className="h-8 bg-green-500" />
+              <Avatar>
+                <AvatarImage
+                  src={session.user.image || profilepic.src}
+                  alt="profile"
+                />
+                <AvatarFallback>{userName[0]}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <p className="font-semibold text-sm">{userName}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {session.user.email}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <Button asChild variant="outline" className="text-green-500 border-green-500">
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button asChild className="bg-green-500 hover:bg-green-600">
+                <Link href="/signup">SignUp</Link>
+              </Button>
+            </>
+          )}
+        </div>
+
+        {/* Mobile Menu */}
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="w-6 h-6 text-green-600" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64">
+              <div className="mb-6 mt-4">
+                <p className="text-xl font-semibold">
+                  GreeNet<span className="text-green-500 text-2xl">.</span>
+                </p>
+              </div>
+              <nav className="flex flex-col gap-4 font-semibold">
+                <Link href="/" onClick={() => {}}>Home</Link>
+                <Link href="#feature" onClick={() => {}}>Feature</Link>
+                <Link href="#howitwork" onClick={() => {}}>How it work</Link>
+                <Link href="#testimoney" onClick={() => {}}>Testimoney</Link>
+                <Link href="#pricing" onClick={() => {}}>Pricing</Link>
+              </nav>
+              <Separator className="my-4" />
+              {session ? (
+                <div className="flex items-center gap-3">
+                  <Avatar>
+                    <AvatarImage
+                      src={session.user.image || profilepic.src}
+                      alt="profile"
+                    />
+                    <AvatarFallback>{userName[0]}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <p className="font-semibold text-sm">{userName}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {session.user.email}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  <Button asChild variant="outline" className="text-green-500 border-green-500">
+                    <Link href="/login">Login</Link>
+                  </Button>
+                  <Button asChild className="bg-green-500 hover:bg-green-600">
+                    <Link href="/signup">SignUp</Link>
+                  </Button>
+                </div>
+              )}
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default NavBar;

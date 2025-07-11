@@ -15,7 +15,7 @@ export default function DashBoardLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="flex gap-2 dark:bg-[#121212]">
+		<div className="flex gap-2 mt-16 dark:bg-[#121212]">
 			<div className="w-[20%]">
 				<SideBar />
 			</div>

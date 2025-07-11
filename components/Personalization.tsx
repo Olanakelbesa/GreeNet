@@ -113,7 +113,7 @@ export default function MultiStepForm() {
             <div className="bg-green-100 rounded-2xl p-6 flex-shrink-0">
               <div className="w-24 h-24 relative">
                 <Image
-                  src={currentStep === 1 ? "/farmer-illustration.png" : "/dashboard-step3-illustration.png"}
+                  src={"/personal_detail 1.png"}
                   alt={currentStep === 1 ? "Person with plant illustration" : "Person with charts illustration"}
                   fill
                   className="object-contain"
@@ -123,7 +123,7 @@ export default function MultiStepForm() {
 
             {/* Title and Description */}
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 mb-3">Personal details</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-3">Personalization</h1>
               <p className="text-gray-600 text-base leading-relaxed">
                 Discover a diverse array of valuable insights and updates shared by our community on GreenNet.
               </p>
